@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AA制费用分摊助手 - 结算</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f6f6f6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .status-bar {
+            background-color: #fff;
+            padding: 5px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 25px;
+            font-size: 12px;
+        }
+        .nav-bar {
+            background-color: #fff;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 44px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            margin: 15px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            padding: 15px;
+            border-bottom: 1px solid #eaeaea;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .card-body {
+            padding: 15px;
+        }
+        .summary-card {
+            background-color: #07c160;
+            border-radius: 10px;
+            margin: 15px;
+            padding: 20px;
+            color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .summary-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .summary-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        .summary-amount {
+            font-size: 30px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .summary-info {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+        .summary-info i {
+            margin-right: 8px;
+        }
+        .transaction-list {
+            margin-top: 10px;
+        }
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+        .avatar-container {
+            position: relative;
+            margin-right: 15px;
+        }
+        .avatar-from {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .avatar-to {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            border: 2px solid white;
+        }
+        .arrow-icon {
+            color: #999;
+            margin: 0 10px;
+        }
+        .transaction-info {
+            flex: 1;
+        }
+        .transaction-users {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 3px;
+        }
+        .transaction-status {
+            font-size: 12px;
+            color: #999;
+        }
+        .transaction-completed {
+            color: #07c160;
+        }
+        .transaction-pending {
+            color: #ff9500;
+        }
+        .transaction-amount {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+        }
+        .button-container {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .action-button {
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        .action-button i {
+            margin-right: 5px;
+        }
+        .primary-button {
+            background-color: #07c160;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            flex: 1;
+            text-align: center;
+            margin-left: 10px;
+        }
+        .tab-container {
+            display: flex;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 15px;
+        }
+        .tab-item {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+        .tab-item.active {
+            background-color: #07c160;
+            color: white;
+        }
+        .progress-bar {
+            height: 6px;
+            background-color: #f0f0f0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #07c160;
+        }
+        .payment-method {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+        .payment-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+            color: #333;
+        }
+        .payment-info {
+            flex: 1;
+        }
+        .payment-name {
+            font-weight: 500;
+            font-size: 16px;
+            color: #333;
+        }
+        .payment-desc {
+            font-size: 12px;
+            color: #999;
+            margin-top: 3px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 状态栏 -->
+    <div class="status-bar">
+        <div class="flex items-center">
+            <i class="fas fa-signal mr-1"></i>
+            <span>中国移动</span>
+        </div>
+        <div>21:59</div>
+        <div class="flex items-center">
+            <i class="fas fa-battery-full ml-1"></i>
+            <span>100%</span>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="nav-bar">
+        <div>
+            <a href="expense-details.html"><i class="fas fa-arrow-left"></i></a>
+        </div>
+        <div class="text-lg font-bold">结算</div>
+        <div>
+            <i class="fas fa-share-alt"></i>
+        </div>
+    </div>
+
+    <!-- 结算标签页 -->
+    <div class="tab-container">
+        <div class="tab-item active">待结算</div>
+        <div class="tab-item">已结算</div>
+        <div class="tab-item">全部</div>
+    </div>
+
+    <!-- 结算摘要 -->
+    <div class="summary-card">
+        <div class="summary-title">周末聚餐小分队</div>
+        <div class="summary-subtitle">结算摘要</div>
+        
+        <div class="font-medium">你将收到</div>
+        <div class="summary-amount">¥289.50</div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 35%;"></div>
+        </div>
+        <div class="flex justify-between text-sm">
+            <span>已收到：¥96.50</span>
+            <span>未收到：¥193.00</span>
+        </div>
+        
+        <div class="summary-info">
+            <i class="fas fa-calendar-alt"></i>
+            <span>最后更新于 2023年7月15日</span>
+        </div>
+    </div>
+
+    <!-- 待付款列表 -->
+    <div class="card">
+        <div class="card-header">
+            <span>待付款交易</span>
+            <span class="text-sm font-normal text-gray-500">共3笔</span>
+        </div>
+        <div class="card-body">
+            <div class="transaction-list">
+                <div class="transaction-item">
+                    <div class="avatar-container">
+                        <img src="https://i.pravatar.cc/150?img=32" class="avatar-from" alt="User">
+                        <img src="https://i.pravatar.cc/150?img=13" class="avatar-to" alt="User">
+                    </div>
+                    <div class="transaction-info">
+                        <div class="transaction-users">李明 → 王小明 (我)</div>
+                        <div class="transaction-status transaction-pending">
+                            <i class="fas fa-hourglass-half"></i> 待付款
+                        </div>
+                    </div>
+                    <div class="transaction-amount">¥96.50</div>
+                </div>
+                
+                <div class="transaction-item">
+                    <div class="avatar-container">
+                        <img src="https://i.pravatar.cc/150?img=44" class="avatar-from" alt="User">
+                        <img src="https://i.pravatar.cc/150?img=13" class="avatar-to" alt="User">
+                    </div>
+                    <div class="transaction-info">
+                        <div class="transaction-users">张小红 → 王小明 (我)</div>
+                        <div class="transaction-status transaction-pending">
+                            <i class="fas fa-hourglass-half"></i> 待付款
+                        </div>
+                    </div>
+                    <div class="transaction-amount">¥96.50</div>
+                </div>
+                
+                <div class="transaction-item">
+                    <div class="avatar-container">
+                        <img src="https://i.pravatar.cc/150?img=68" class="avatar-from" alt="User">
+                        <img src="https://i.pravatar.cc/150?img=13" class="avatar-to" alt="User">
+                    </div>
+                    <div class="transaction-info">
+                        <div class="transaction-users">王芳 → 王小明 (我)</div>
+                        <div class="transaction-status transaction-completed">
+                            <i class="fas fa-check-circle"></i> 已完成
+                        </div>
+                    </div>
+                    <div class="transaction-amount">¥96.50</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 支付方式 -->
+    <div class="card">
+        <div class="card-header">支付方式</div>
+        <div class="card-body">
+            <div class="payment-method">
+                <div class="payment-icon">
+                    <i class="fab fa-weixin" style="color: #07c160;"></i>
+                </div>
+                <div class="payment-info">
+                    <div class="payment-name">微信支付</div>
+                    <div class="payment-desc">直接使用微信支付结算</div>
+                </div>
+                <input type="radio" name="payment" checked>
+            </div>
+            
+            <div class="payment-method">
+                <div class="payment-icon">
+                    <i class="fas fa-qrcode"></i>
+                </div>
+                <div class="payment-info">
+                    <div class="payment-name">二维码转账</div>
+                    <div class="payment-desc">生成二维码分享给对方扫描支付</div>
+                </div>
+                <input type="radio" name="payment">
+            </div>
+            
+            <div class="payment-method">
+                <div class="payment-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="payment-info">
+                    <div class="payment-name">线下支付</div>
+                    <div class="payment-desc">当面支付或其他方式</div>
+                </div>
+                <input type="radio" name="payment">
+            </div>
+        </div>
+    </div>
+
+    <!-- 操作按钮 -->
+    <div class="button-container">
+        <a href="#" class="action-button">
+            <i class="fas fa-bell"></i> 提醒付款
+        </a>
+        <a href="groups.html" class="primary-button">确认结算</a>
+    </div>
+</body>
+</html> 

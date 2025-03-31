@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AA制费用分摊助手 - 添加费用</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f6f6f6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .status-bar {
+            background-color: #fff;
+            padding: 5px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 25px;
+            font-size: 12px;
+        }
+        .nav-bar {
+            background-color: #fff;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 44px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        .form-container {
+            background-color: #fff;
+            margin: 15px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            padding: 15px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        .form-group:last-child {
+            border-bottom: none;
+        }
+        .form-label {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+        .form-control {
+            width: 100%;
+            border: none;
+            padding: 5px 0;
+            font-size: 16px;
+            color: #333;
+            outline: none;
+        }
+        .group-selector {
+            display: flex;
+            align-items: center;
+        }
+        .group-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 12px;
+        }
+        .group-info {
+            flex: 1;
+        }
+        .group-name {
+            font-size: 16px;
+            color: #333;
+        }
+        .group-members {
+            font-size: 12px;
+            color: #999;
+            margin-top: 3px;
+        }
+        .currency-select {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .currency-select .form-control {
+            flex: 1;
+            text-align: right;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .currency-code {
+            font-size: 18px;
+            color: #333;
+            margin-right: 8px;
+            font-weight: bold;
+        }
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .member-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .member-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: relative;
+        }
+        .member-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .member-avatar.selected:after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            width: 20px;
+            height: 20px;
+            background-color: #07c160;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+        .member-avatar.selected:after {
+            content: '✓';
+        }
+        .member-name {
+            font-size: 12px;
+            color: #333;
+            margin-top: 5px;
+            text-align: center;
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .split-options {
+            display: flex;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-top: 10px;
+        }
+        .split-option {
+            flex: 0 0 auto;
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            margin-right: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+        .split-option.active {
+            background-color: #07c160;
+            color: white;
+            border-color: #07c160;
+        }
+        .button-container {
+            padding: 20px 15px;
+        }
+        .save-button {
+            background-color: #07c160;
+            color: white;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .date-picker {
+            border: none;
+            color: #333;
+            font-size: 16px;
+            width: 100%;
+            outline: none;
+        }
+        .category-select {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .category-icon {
+            width: 36px;
+            height: 36px;
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: #07c160;
+        }
+        .category-name {
+            flex: 1;
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- 状态栏 -->
+    <div class="status-bar">
+        <div class="flex items-center">
+            <i class="fas fa-signal mr-1"></i>
+            <span>中国移动</span>
+        </div>
+        <div>21:59</div>
+        <div class="flex items-center">
+            <i class="fas fa-battery-full ml-1"></i>
+            <span>100%</span>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="nav-bar">
+        <div>
+            <a href="groups.html"><i class="fas fa-arrow-left"></i></a>
+        </div>
+        <div class="text-lg font-bold">添加费用</div>
+        <div></div>
+    </div>
+
+    <!-- 表单容器 -->
+    <div class="form-container">
+        <!-- 选择群组 -->
+        <div class="form-group">
+            <div class="form-label">群组</div>
+            <div class="group-selector">
+                <img src="https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="group-avatar" alt="Group">
+                <div class="group-info">
+                    <div class="group-name">周末聚餐小分队</div>
+                    <div class="group-members">5名成员</div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+            </div>
+        </div>
+
+        <!-- 费用描述 -->
+        <div class="form-group">
+            <div class="form-label">费用说明</div>
+            <input type="text" class="form-control" placeholder="例如：火锅聚餐、电影票" value="周末自助餐">
+        </div>
+
+        <!-- 费用金额 -->
+        <div class="form-group">
+            <div class="form-label">金额</div>
+            <div class="currency-select">
+                <div class="currency-code">¥</div>
+                <input type="text" class="form-control" placeholder="0.00" value="386.00">
+            </div>
+        </div>
+
+        <!-- 费用日期 -->
+        <div class="form-group">
+            <div class="form-label">日期</div>
+            <input type="date" class="date-picker" value="2023-07-15">
+        </div>
+
+        <!-- 费用类别 -->
+        <div class="form-group">
+            <div class="form-label">类别</div>
+            <div class="category-select">
+                <div class="category-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <div class="category-name">餐饮</div>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+            </div>
+        </div>
+
+        <!-- 付款人 -->
+        <div class="form-group">
+            <div class="section-title">由谁支付?</div>
+            <div class="group-selector">
+                <img src="https://i.pravatar.cc/150?img=13" class="group-avatar" alt="User">
+                <div class="group-info">
+                    <div class="group-name">王小明 (我)</div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+            </div>
+        </div>
+
+        <!-- 分摊对象 -->
+        <div class="form-group">
+            <div class="section-title">分摊给谁?</div>
+            <div class="members-grid">
+                <div class="member-item">
+                    <div class="member-avatar selected">
+                        <img src="https://i.pravatar.cc/150?img=13" alt="Member">
+                    </div>
+                    <div class="member-name">我</div>
+                </div>
+                <div class="member-item">
+                    <div class="member-avatar selected">
+                        <img src="https://i.pravatar.cc/150?img=32" alt="Member">
+                    </div>
+                    <div class="member-name">李明</div>
+                </div>
+                <div class="member-item">
+                    <div class="member-avatar selected">
+                        <img src="https://i.pravatar.cc/150?img=44" alt="Member">
+                    </div>
+                    <div class="member-name">张小红</div>
+                </div>
+                <div class="member-item">
+                    <div class="member-avatar selected">
+                        <img src="https://i.pravatar.cc/150?img=68" alt="Member">
+                    </div>
+                    <div class="member-name">王芳</div>
+                </div>
+                <div class="member-item">
+                    <div class="member-avatar">
+                        <img src="https://i.pravatar.cc/150?img=60" alt="Member">
+                    </div>
+                    <div class="member-name">赵伟</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 分摊方式 -->
+        <div class="form-group">
+            <div class="section-title">分摊方式</div>
+            <div class="split-options">
+                <div class="split-option active">平均分摊</div>
+                <div class="split-option">按比例分摊</div>
+                <div class="split-option">按金额分摊</div>
+                <div class="split-option">调整金额</div>
+            </div>
+        </div>
+
+        <!-- 添加相关图片 -->
+        <div class="form-group">
+            <div class="form-label">添加照片或收据</div>
+            <div class="flex items-center justify-center p-4 border-2 border-dashed border-gray-300 rounded-lg">
+                <div class="text-center">
+                    <i class="fas fa-camera text-2xl text-gray-400"></i>
+                    <div class="text-sm text-gray-500 mt-2">点击添加照片</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 备注 -->
+        <div class="form-group">
+            <div class="form-label">备注</div>
+            <textarea class="form-control" rows="2" placeholder="添加备注信息"></textarea>
+        </div>
+    </div>
+
+    <!-- 保存按钮 -->
+    <div class="button-container">
+        <a href="expense-details.html" class="save-button">保存</a>
+    </div>
+</body>
+</html> 

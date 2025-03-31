@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AA制费用分摊助手 - 原型图</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f0f2f5;
+        }
+        .phone-frame {
+            width: 390px;
+            height: 844px;
+            border-radius: 40px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            overflow: hidden;
+            position: relative;
+            margin: 20px;
+            border: 10px solid #000;
+        }
+        .phone-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .frame-title {
+            font-size: 16px;
+            text-align: center;
+            margin-top: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto py-8">
+        <h1 class="text-3xl font-bold text-center mb-10">AA制费用分摊助手 - 原型图</h1>
+        <div class="flex flex-wrap justify-center">
+            <!-- 群组页面 -->
+            <div class="flex flex-col items-center">
+                <div class="phone-frame">
+                    <iframe src="groups.html"></iframe>
+                </div>
+                <div class="frame-title">群组页面</div>
+            </div>
+            
+            <!-- 朋友页面 -->
+            <div class="flex flex-col items-center">
+                <div class="phone-frame">
+                    <iframe src="friends.html"></iframe>
+                </div>
+                <div class="frame-title">朋友页面</div>
+            </div>
+
+            <!-- 个人资料页面 -->
+            <div class="flex flex-col items-center">
+                <div class="phone-frame">
+                    <iframe src="profile.html"></iframe>
+                </div>
+                <div class="frame-title">个人资料页面</div>
+            </div>
+
+            <!-- 添加费用页面 -->
+            <div class="flex flex-col items-center">
+                <div class="phone-frame">
+                    <iframe src="add-expense.html"></iframe>
+                </div>
+                <div class="frame-title">添加费用页面</div>
+            </div>
+
+            <!-- 费用详情页面 -->
+            <div class="flex flex-col items-center">
+                <div class="phone-frame">
+                    <iframe src="expense-details.html"></iframe>
+                </div>
+                <div class="frame-title">费用详情页面</div>
+            </div>
+
+            <!-- 结算页面 -->
+            <div class="flex flex-col items-center">
+                <div class="phone-frame">
+                    <iframe src="settlement.html"></iframe>
+                </div>
+                <div class="frame-title">结算页面</div>
+            </div>
+
+            <!-- 创建群组页面 -->
+            <div class="flex flex-col items-center">
+                <div class="phone-frame">
+                    <iframe src="create-group.html"></iframe>
+                </div>
+                <div class="frame-title">创建群组页面</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

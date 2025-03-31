@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AA制费用分摊助手 - 费用详情</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f6f6f6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .status-bar {
+            background-color: #fff;
+            padding: 5px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 25px;
+            font-size: 12px;
+        }
+        .nav-bar {
+            background-color: #fff;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 44px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        .expense-header {
+            background-color: #07c160;
+            padding: 20px 15px;
+            color: white;
+        }
+        .expense-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .expense-meta {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .expense-meta i {
+            margin-right: 5px;
+        }
+        .expense-meta span {
+            margin-right: 15px;
+        }
+        .expense-amount {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 20px 0 10px;
+        }
+        .expense-card {
+            background-color: white;
+            border-radius: 10px;
+            margin: 15px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            padding: 15px;
+            border-bottom: 1px solid #eaeaea;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .card-body {
+            padding: 15px;
+        }
+        .payer-info {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 12px;
+        }
+        .user-name {
+            font-size: 16px;
+            color: #333;
+            flex: 1;
+        }
+        .split-list {
+            margin-top: 10px;
+        }
+        .split-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+        .split-item:last-child {
+            border-bottom: none;
+        }
+        .user-share {
+            font-weight: 500;
+            color: #fa5151;
+        }
+        .action-button {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-right: 10px;
+        }
+        .edit-button {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        .delete-button {
+            background-color: #ffecec;
+            color: #fa5151;
+        }
+        .comment-section {
+            margin-top: 10px;
+        }
+        .comment-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        .comment-content {
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            padding: 10px;
+            margin-left: 10px;
+            flex: 1;
+            position: relative;
+        }
+        .comment-content:before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 10px;
+            width: 10px;
+            height: 10px;
+            background-color: #f0f0f0;
+            transform: rotate(45deg);
+        }
+        .comment-user {
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+        .comment-text {
+            font-size: 14px;
+            color: #333;
+        }
+        .comment-time {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+            text-align: right;
+        }
+        .comment-input {
+            display: flex;
+            align-items: center;
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            padding: 8px 15px;
+            margin-top: 15px;
+        }
+        .comment-input input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 14px;
+        }
+        .receipt-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        .button-container {
+            display: flex;
+            margin: 20px 15px;
+        }
+        .full-button {
+            flex: 1;
+            background-color: #07c160;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- 状态栏 -->
+    <div class="status-bar">
+        <div class="flex items-center">
+            <i class="fas fa-signal mr-1"></i>
+            <span>中国移动</span>
+        </div>
+        <div>21:59</div>
+        <div class="flex items-center">
+            <i class="fas fa-battery-full ml-1"></i>
+            <span>100%</span>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="nav-bar">
+        <div>
+            <a href="groups.html"><i class="fas fa-arrow-left"></i></a>
+        </div>
+        <div class="text-lg font-bold">费用详情</div>
+        <div>
+            <i class="fas fa-ellipsis-v"></i>
+        </div>
+    </div>
+
+    <!-- 费用头部 -->
+    <div class="expense-header">
+        <div class="expense-title">周末自助餐</div>
+        <div class="expense-meta">
+            <i class="fas fa-calendar"></i>
+            <span>2023年7月15日</span>
+            <i class="fas fa-utensils"></i>
+            <span>餐饮</span>
+        </div>
+        <div class="expense-amount">¥386.00</div>
+    </div>
+
+    <!-- 支付信息 -->
+    <div class="expense-card">
+        <div class="card-header">支付信息</div>
+        <div class="card-body">
+            <div class="payer-info">
+                <img src="https://i.pravatar.cc/150?img=13" class="user-avatar" alt="User">
+                <div class="user-name">王小明 (我) 支付了</div>
+                <div class="font-bold">¥386.00</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 分摊详情 -->
+    <div class="expense-card">
+        <div class="card-header">
+            <span>分摊详情</span>
+            <span class="text-sm font-normal text-gray-500">平均分摊</span>
+        </div>
+        <div class="card-body">
+            <div class="split-list">
+                <div class="split-item">
+                    <img src="https://i.pravatar.cc/150?img=13" class="user-avatar" alt="User">
+                    <div class="user-name">王小明 (我)</div>
+                    <div class="user-share">¥96.50</div>
+                </div>
+                <div class="split-item">
+                    <img src="https://i.pravatar.cc/150?img=32" class="user-avatar" alt="User">
+                    <div class="user-name">李明</div>
+                    <div class="user-share">¥96.50</div>
+                </div>
+                <div class="split-item">
+                    <img src="https://i.pravatar.cc/150?img=44" class="user-avatar" alt="User">
+                    <div class="user-name">张小红</div>
+                    <div class="user-share">¥96.50</div>
+                </div>
+                <div class="split-item">
+                    <img src="https://i.pravatar.cc/150?img=68" class="user-avatar" alt="User">
+                    <div class="user-name">王芳</div>
+                    <div class="user-share">¥96.50</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 收据 -->
+    <div class="expense-card">
+        <div class="card-header">收据</div>
+        <div class="card-body">
+            <img src="https://images.unsplash.com/photo-1572048572872-2688652e0360?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="receipt-image" alt="Receipt">
+        </div>
+    </div>
+
+    <!-- 备注与评论 -->
+    <div class="expense-card">
+        <div class="card-header">备注与评论</div>
+        <div class="card-body">
+            <div class="comment-section">
+                <div class="comment-item">
+                    <img src="https://i.pravatar.cc/150?img=13" class="user-avatar" alt="User">
+                    <div class="comment-content">
+                        <div class="comment-user">王小明 (我)</div>
+                        <div class="comment-text">服务费已包含在总金额中，不需要额外支付小费。</div>
+                        <div class="comment-time">15分钟前</div>
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <img src="https://i.pravatar.cc/150?img=32" class="user-avatar" alt="User">
+                    <div class="comment-content">
+                        <div class="comment-user">李明</div>
+                        <div class="comment-text">已收到，稍后转账。</div>
+                        <div class="comment-time">10分钟前</div>
+                    </div>
+                </div>
+                <div class="comment-input">
+                    <input type="text" placeholder="添加评论...">
+                    <i class="fas fa-paper-plane text-gray-500"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 操作按钮 -->
+    <div class="button-container">
+        <a href="add-expense.html" class="action-button edit-button">
+            <i class="fas fa-edit mr-1"></i> 编辑
+        </a>
+        <a href="#" class="action-button delete-button">
+            <i class="fas fa-trash mr-1"></i> 删除
+        </a>
+        <a href="settlement.html" class="full-button">
+            <i class="fas fa-exchange-alt mr-1"></i> 结算
+        </a>
+    </div>
+</body>
+</html> 

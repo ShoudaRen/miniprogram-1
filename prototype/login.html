@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AA制费用分摊助手 - 登录</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f6f6f6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .status-bar {
+            background-color: #fff;
+            padding: 5px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 25px;
+            font-size: 12px;
+        }
+
+        .login-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .app-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            background-color: #07c160;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 50px;
+        }
+
+        .app-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .wechat-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .wechat-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+        }
+
+        .wechat-text {
+            flex: 1;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .status-tag {
+            padding: 4px 8px;
+            background-color: #e8f7e8;
+            color: #07c160;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .unbind-btn {
+            text-align: center;
+            color: #576b95;
+            margin-top: 15px;
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        .login-btn {
+            background-color: #07c160;
+            color: white;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-btn i {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        .phone-login-btn {
+            background-color: white;
+            color: #07c160;
+            border: 1px solid #07c160;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .phone-login-btn i {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        .privacy-text {
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+            /* 保持居中对齐 */
+            margin-top: 30px;
+            padding: 0 20px;
+            line-height: 1.5;
+            position: absolute;
+            /* 使用绝对定位 */
+            bottom: 0;
+            /* 固定在底部 */
+            left: 50%;
+            /* 水平居中起点 */
+            transform: translateX(-50%);
+            /* 偏移调整实现完美居中 */
+            width: 100%;
+            /* 确保宽度适应容器 */
+            box-sizing: border-box;
+            /* 确保padding不影响宽度计算 */
+        }
+
+        .privacy-link {
+            color: #576b95;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 状态栏 -->
+    <div class="status-bar">
+        <div class="flex items-center">
+            <i class="fas fa-signal mr-1"></i>
+            <span>中国移动</span>
+        </div>
+        <div>21:59</div>
+        <div class="flex items-center">
+            <i class="fas fa-battery-full ml-1"></i>
+            <span>100%</span>
+        </div>
+    </div>
+
+    <!-- 登录内容 -->
+    <div class="login-container">
+        <div class="app-logo">
+            <i class="fas fa-money-bill-wave"></i>
+        </div>
+        <div class="app-name">AA制费用分摊助手</div>
+
+
+        <a href="profile.html" class="login-btn">
+            <i class="fab fa-weixin"></i>
+            微信一键登录
+        </a>
+
+        <a href="#" class="phone-login-btn">
+            <i class="fas fa-mobile-alt"></i>
+            手机号登录/注册
+        </a>
+
+        <div class="privacy-text">
+            登录即代表您已同意《<span class="privacy-link">用户协议</span>》和《<span
+                class="privacy-link">隐私政策</span>》，并授权我们获取您的微信公开信息（昵称、头像等）
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,27 +1,36 @@
 <!--index.wxml-->
-<scroll-view class="scrollarea" scroll-y type="list">
-  <view class="container">
-    <view class="userinfo">
-      <block wx:if="{{canIUseNicknameComp && !hasUserInfo}}">
-        <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-          <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
-        </button>
-        <view class="nickname-wrapper">
-          <text class="nickname-label">昵称</text>
-          <input type="nickname" class="nickname-input" placeholder="请输入昵称" bind:change="onInputChange" />
-        </view>
-      </block>
-      <block wx:elif="{{!hasUserInfo}}">
-        <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
-        <view wx:else> 请使用2.10.4及以上版本基础库 </view>
-      </block>
-      <block wx:else>
-        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-      </block>
+<view class="login-container">
+  <!-- 状态栏 -->
+  <view class="status-bar">
+    <view class="status-left">
+      <text class="signal-icon">📶</text>
+      <text>中国移动</text>
     </view>
-    <view class="usermotto">
-      <text class="user-motto">{{motto}}</text>
+    <view class="status-center">{{currentTime}}</view>
+    <view class="status-right">
+      <text class="battery-icon">🔋</text>
+      <text>100%</text>
     </view>
   </view>
-</scroll-view>
+  
+  <view class="login-content">
+    <!-- 应用图标和名称 -->
+    <view class="app-logo">💰</view>
+    <view class="app-name">易易分账</view>
+
+    <!-- 登录按钮 -->
+    <button class="login-btn" bindtap="simpleLogin">
+      <text>微信一键登录</text>
+    </button>
+
+    <!-- 手机号登录按钮 -->
+    <button class="phone-login-btn" bindtap="navigateToPhoneLogin">
+      <text>手机号登录/注册</text>
+    </button>
+  </view>
+
+  <!-- 隐私协议文本 -->
+  <view class="privacy-text">
+    登录即代表您已同意《用户协议》和《隐私政策》
+  </view>
+</view>

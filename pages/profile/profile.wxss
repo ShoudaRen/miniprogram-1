@@ -1,0 +1,202 @@
+/* pages/profile/profile.wxss */
+page {
+  height: 100vh;
+  background-color: #f6f6f6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding-bottom: 50px; /* 底部标签栏高度 */
+  box-sizing: border-box;
+  position: relative;
+  background-color: #f6f6f6;
+  overflow-y: auto; /* 启用容器的滚动 */
+}
+
+/* 状态栏样式 */
+.status-bar {
+  background-color: #fff;
+  padding: 5px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 25px;
+  font-size: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.status-left, .status-right {
+  display: flex;
+  align-items: center;
+}
+
+.signal-icon, .battery-icon {
+  margin-right: 5px;
+}
+
+.page-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* 个人资料头部样式 */
+.profile-header {
+  background-color: #fff;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eaeaea;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.user-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.user-id {
+  font-size: 14px;
+  color: #999;
+  margin-top: 5px;
+}
+
+.edit-profile {
+  padding: 6px 12px;
+  border: 1px solid #07c160;
+  border-radius: 16px;
+  color: #07c160;
+  font-size: 14px;
+}
+
+/* 统计行样式 */
+.section-title {
+  padding: 15px 15px 10px;
+  font-size: 14px;
+  color: #999;
+  background-color: #f6f6f6;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.stats-row {
+  display: flex;
+  background-color: #fff;
+  padding: 15px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.stats-item {
+  flex: 1;
+  text-align: center;
+  border-right: 1px solid #eaeaea;
+}
+
+.stats-item:last-child {
+  border-right: none;
+}
+
+.stats-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.stats-label {
+  font-size: 12px;
+  color: #999;
+}
+
+/* 菜单列表样式 */
+.menu-list {
+  background-color: #fff;
+  margin: 0 0 15px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #07c160;
+}
+
+.menu-item-text {
+  flex: 1;
+  font-size: 16px;
+  color: #333;
+}
+
+.menu-item-arrow {
+  color: #ccc;
+}
+
+/* 底部标签栏样式 */
+.tab-bar {
+  background-color: #fff;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid #eaeaea;
+  height: 50px;
+  z-index: 200;
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 0;
+  font-size: 10px;
+  color: #999;
+}
+
+.tab-item.active {
+  color: #07c160;
+}
+
+.tab-icon {
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+
+.tab-text {
+  font-size: 10px;
+} 

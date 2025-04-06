@@ -1,0 +1,109 @@
+<!--pages/profile/profile.wxml-->
+<view class="container">
+
+  <!-- 个人资料头部 -->
+  <view class="profile-header">
+    <image class="user-avatar" src="{{userInfo.avatarUrl || 'https://i.pravatar.cc/150?img=13'}}" mode="aspectFill"></image>
+    <view class="user-info">
+      <view class="user-name">{{userInfo.nickName || '王小明'}}</view>
+      <view class="user-id">微信号: {{userInfo.wxid || 'wxm_2023'}}</view>
+    </view>
+    <view class="edit-profile" bindtap="editProfile">编辑资料</view>
+  </view>
+
+  <!-- 用户统计 -->
+  <view class="section-title">账户概览</view>
+  <view class="stats-row">
+    <view class="stats-item">
+      <view class="stats-value">4</view>
+      <view class="stats-label">活跃群组</view>
+    </view>
+    <view class="stats-item">
+      <view class="stats-value">16</view>
+      <view class="stats-label">朋友</view>
+    </view>
+    <view class="stats-item">
+      <view class="stats-value">¥750</view>
+      <view class="stats-label">净余额</view>
+    </view>
+  </view>
+
+  <!-- 账户设置菜单 -->
+  <view class="section-title">账户设置</view>
+  <view class="menu-list">
+    <view class="menu-item" bindtap="handleBasicMenuItemTap" data-text="支付方式">
+      <view class="menu-item-icon">💳</view>
+      <view class="menu-item-text">支付方式</view>
+      <view class="menu-item-arrow">〉</view>
+    </view>
+    <view class="menu-item" bindtap="handleBasicMenuItemTap" data-text="通知设置">
+      <view class="menu-item-icon">🔔</view>
+      <view class="menu-item-text">通知设置</view>
+      <view class="menu-item-arrow">〉</view>
+    </view>
+    <view class="menu-item" bindtap="handleBasicMenuItemTap" data-text="货币与语言">
+      <view class="menu-item-icon">🌐</view>
+      <view class="menu-item-text">货币与语言</view>
+      <view class="menu-item-arrow">〉</view>
+    </view>
+  </view>
+
+  <!-- 历史与报表菜单 -->
+  <view class="section-title">历史与报表</view>
+  <view class="menu-list">
+    <view class="menu-item" bindtap="handleBasicMenuItemTap" data-text="交易历史">
+      <view class="menu-item-icon">⏱️</view>
+      <view class="menu-item-text">交易历史</view>
+      <view class="menu-item-arrow">〉</view>
+    </view>
+    <view class="menu-item" bindtap="handleBasicMenuItemTap" data-text="消费报表">
+      <view class="menu-item-icon">📊</view>
+      <view class="menu-item-text">消费报表</view>
+      <view class="menu-item-arrow">〉</view>
+    </view>
+    <view class="menu-item" bindtap="handleBasicMenuItemTap" data-text="导出数据">
+      <view class="menu-item-icon">📤</view>
+      <view class="menu-item-text">导出数据</view>
+      <view class="menu-item-arrow">〉</view>
+    </view>
+  </view>
+
+  <!-- 帮助菜单 -->
+  <view class="section-title">帮助</view>
+  <view class="menu-list">
+    <view class="menu-item" bindtap="handleBasicMenuItemTap" data-text="常见问题">
+      <view class="menu-item-icon">❓</view>
+      <view class="menu-item-text">常见问题</view>
+      <view class="menu-item-arrow">〉</view>
+    </view>
+    <view class="menu-item" bindtap="handleBasicMenuItemTap" data-text="联系客服">
+      <view class="menu-item-icon">🎧</view>
+      <view class="menu-item-text">联系客服</view>
+      <view class="menu-item-arrow">〉</view>
+    </view>
+    <view class="menu-item" bindtap="handleBasicMenuItemTap" data-text="关于我们">
+      <view class="menu-item-icon">ℹ️</view>
+      <view class="menu-item-text">关于我们</view>
+      <view class="menu-item-arrow">〉</view>
+    </view>
+  </view>
+
+  <!-- 底部空间，防止内容被标签栏遮挡 -->
+  <view style="height: 50px;"></view>
+
+  <!-- 底部标签栏 -->
+  <view class="tab-bar">
+    <view class="tab-item" bindtap="navigateToGroups">
+      <view class="tab-icon">👥</view>
+      <view class="tab-text">群组</view>
+    </view>
+    <view class="tab-item" bindtap="navigateToFriends">
+      <view class="tab-icon">👫</view>
+      <view class="tab-text">朋友</view>
+    </view>
+    <view class="tab-item active">
+      <view class="tab-icon">👤</view>
+      <view class="tab-text">我的</view>
+    </view>
+  </view>
+</view> 

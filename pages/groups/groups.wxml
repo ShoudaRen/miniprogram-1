@@ -1,0 +1,43 @@
+<!--pages/groups/groups.wxml-->
+<!-- 状态栏 -->
+<view class="status-bar">
+  <view class="status-left">
+    <text class="signal-icon">📶</text>
+    <text>中国移动</text>
+  </view>
+  <view class="status-center">{{currentTime}}</view>
+  <view class="status-right">
+    <text>100%</text>
+    <text class="battery-icon">🔋</text>
+  </view>
+</view>
+
+<!-- 导航栏 -->
+<view class="nav-bar">
+  <view class="nav-title">我的群组</view>
+  <view class="nav-right">
+    <text class="settings-icon">🔔</text>
+  </view>
+</view>
+
+<view class="container">
+  <view class="content">
+    <view class="group-list">
+      <view class="group-item" wx:for="{{groups}}" wx:key="id" bindtap="onGroupTap" data-id="{{item.id}}">
+        <view class="group-header">
+          <text class="group-avatar">{{item.avatar}}</text>
+          <view class="group-info">
+            <view class="group-name">{{item.name}}</view>
+            <view class="group-activity">最后活动: {{item.lastActivity}}</view>
+          </view>
+          <view class="group-amount {{item.amount[0] === '+' ? 'positive-amount' : 'negative-amount'}}">{{item.amount}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 浮动按钮 - 创建群组 -->
+  <view class="fab-button" bindtap="onCreateGroup">
+    <text class="fab-icon">➕</text>
+  </view>
+</view> 

@@ -1,0 +1,124 @@
+/* pages/friends/friends.wxss */
+page {
+  background-color: #f6f6f6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background-color: #f6f6f6;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* 状态栏样式 */
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 44rpx;
+  padding: 0 20rpx;
+  background-color: #ffffff;
+  font-size: 24rpx;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1001;
+}
+
+.status-left, .status-right {
+  display: flex;
+  align-items: center;
+}
+
+.status-left text, .status-right text {
+  margin: 0 4rpx;
+}
+
+.signal-icon, .battery-icon {
+  font-size: 24rpx;
+}
+
+.status-center {
+  font-size: 24rpx;
+}
+
+/* 导航栏样式 */
+.nav-bar {
+  background-color: #fff;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 44px;
+  border-bottom: 1px solid #eaeaea;
+  width: 100%;
+  box-sizing: border-box;
+  position: fixed;
+  top: 22px; /* 状态栏高度 */
+  left: 0;
+  z-index: 1000;
+}
+
+.nav-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.nav-right {
+  font-size: 18px;
+}
+
+.settings-icon {
+  font-size: 20px;
+}
+
+/* 内容区域 */
+.content {
+  background-color: #f6f6f6;
+  padding-top: 80px; /* 状态栏+导航栏高度 */
+  padding-bottom: 14px;
+  flex: 1;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 空状态样式 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+}
+
+.empty-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+}
+
+.empty-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.empty-subtext {
+  font-size: 14px;
+  color: #999;
+} 

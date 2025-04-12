@@ -16,29 +16,32 @@ page {
   overflow-y: auto; /* 启用容器的滚动 */
 }
 
-/* 状态栏样式 */
-.status-bar {
+/* 导航栏样式 */
+.nav-bar {
   background-color: #fff;
-  padding: 5px 15px;
+  padding: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 25px;
-  font-size: 12px;
+  height: 44px;
+  font-size: 18px;
   width: 100%;
   box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.status-left, .status-right {
+.nav-left, .nav-right {
   display: flex;
   align-items: center;
 }
 
-.signal-icon, .battery-icon {
-  margin-right: 5px;
+.back-icon, .settings-icon {
+  font-size: 20px;
 }
 
-.page-title {
+.nav-title {
   font-size: 18px;
   font-weight: bold;
 }
@@ -164,39 +167,7 @@ page {
   color: #ccc;
 }
 
-/* 底部标签栏样式 */
-.tab-bar {
-  background-color: #fff;
-  display: flex;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  border-top: 1px solid #eaeaea;
-  height: 50px;
-  z-index: 200;
-}
-
-.tab-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 0;
-  font-size: 10px;
-  color: #999;
-}
-
-.tab-item.active {
+/* 活跃状态 */
+.active {
   color: #07c160;
-}
-
-.tab-icon {
-  font-size: 20px;
-  margin-bottom: 2px;
-}
-
-.tab-text {
-  font-size: 10px;
 } 

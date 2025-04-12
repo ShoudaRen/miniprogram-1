@@ -1,6 +1,5 @@
 Page({
   data: {
-    currentTime: '00:00', // 默认时间
     userInfo: {
       avatarUrl: 'https://i.pravatar.cc/150?img=13',
       nickName: '王小明',
@@ -27,7 +26,7 @@ Page({
         }
       ],
       historyAndReports: [
-        {
+        { 
           icon: "⏱️",
           text: "交易历史",
         },
@@ -35,7 +34,7 @@ Page({
           icon: "📊",
           text: "消费报表",
         },
-        {
+        { 
           icon: "📤",
           text: "导出数据",
         }
@@ -45,7 +44,7 @@ Page({
           icon: "❓",
           text: "常见问题",
         },
-        {
+        { 
           icon: "🎧",
           text: "联系客服",
         },
@@ -58,9 +57,6 @@ Page({
   },
   
   onLoad: function(options) {
-    // 设置初始时间
-    this.updateTime();
-    
     // 尝试获取用户信息
     try {
       const userInfo = wx.getStorageSync('userInfo');
@@ -75,26 +71,9 @@ Page({
       console.error('获取用户信息失败', e);
     }
   },
-  
+    
   onShow: function() {
-    // 页面显示时更新时间
-    this.updateTime();
-  },
-  
-  updateTime: function() {
-    try {
-      const now = new Date();
-      const hours = now.getHours().toString().padStart(2, '0');
-      const minutes = now.getMinutes().toString().padStart(2, '0');
-      this.setData({
-        currentTime: hours + ':' + minutes
-      });
-    } catch (e) {
-      console.error('更新时间出错', e);
-      this.setData({
-        currentTime: '00:00'
-      });
-    }
+    // 页面显示时做一些初始化工作
   },
   
   editProfile: function() {
@@ -112,23 +91,18 @@ Page({
     });
   },
   
-  navigateToGroups: function() {
-    wx.showToast({
-      title: '群组功能即将上线',
-      icon: 'none'
-    });
-  },
-  
-  navigateToFriends: function() {
-    wx.showToast({
-      title: '朋友功能即将上线',
-      icon: 'none'
-    });
-  },
-  
-  navigateToIndex: function() {
+  // 返回上一页
+  navigateBack: function() {
     wx.navigateBack({
       delta: 1
+    });
+  },
+  
+  // 打开设置页面
+  openSettings: function() {
+    wx.showToast({
+      title: '设置',
+      icon: 'none'
     });
   }
 }) 

@@ -38,8 +38,8 @@ Page({
   simpleLogin: function() {
     try {
       wx.setStorageSync('userInfo', this.data.userInfo);
-      wx.navigateTo({
-        url: '../profile/profile'
+      wx.switchTab({
+        url: '/pages/profile/profile'
       });
     } catch (e) {
       console.error('登录失败', e);
@@ -90,8 +90,8 @@ Page({
     }
     
     // 跳转到个人资料页
-    wx.navigateTo({
-      url: '../profile/profile'
+    wx.switchTab({
+      url: '/pages/profile/profile'
     });
   },
 })

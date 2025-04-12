@@ -2,12 +2,34 @@
   "pages": [
     "pages/index/index",
     "pages/profile/profile",
-    "pages/logs/logs"
+    "pages/groups/groups",
+    "pages/logs/logs",
+    "pages/friends/friends"
   ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "易易分账",
     "navigationBarBackgroundColor": "#ffffff"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#07c160",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/groups/groups",
+        "text": "群组"
+      },
+      {
+        "pagePath": "pages/friends/friends",
+        "text": "朋友"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的"
+      }
+    ]
   },
   "style": "v2",
   "componentFramework": "glass-easel",

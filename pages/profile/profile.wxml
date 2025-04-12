@@ -1,5 +1,15 @@
 <!--pages/profile/profile.wxml-->
 <view class="container">
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-left" bindtap="navigateBack">
+      <text class="back-icon">←</text>
+    </view>
+    <view class="nav-title">个人资料</view>
+    <view class="nav-right" bindtap="openSettings">
+      <text class="settings-icon">⚙️</text>
+    </view>
+  </view>
 
   <!-- 个人资料头部 -->
   <view class="profile-header">
@@ -90,20 +100,4 @@
 
   <!-- 底部空间，防止内容被标签栏遮挡 -->
   <view style="height: 50px;"></view>
-
-  <!-- 底部标签栏 -->
-  <view class="tab-bar">
-    <view class="tab-item" bindtap="navigateToGroups">
-      <view class="tab-icon">👥</view>
-      <view class="tab-text">群组</view>
-    </view>
-    <view class="tab-item" bindtap="navigateToFriends">
-      <view class="tab-icon">👫</view>
-      <view class="tab-text">朋友</view>
-    </view>
-    <view class="tab-item active">
-      <view class="tab-icon">👤</view>
-      <view class="tab-text">我的</view>
-    </view>
-  </view>
 </view> 

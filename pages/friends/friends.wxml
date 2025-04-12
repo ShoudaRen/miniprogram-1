@@ -1,0 +1,31 @@
+<!--pages/friends/friends.wxml-->
+<!-- 状态栏 -->
+<view class="status-bar">
+  <view class="status-left">
+    <text class="signal-icon">📶</text>
+    <text>中国移动</text>
+  </view>
+  <view class="status-center">{{currentTime}}</view>
+  <view class="status-right">
+    <text>100%</text>
+    <text class="battery-icon">🔋</text>
+  </view>
+</view>
+
+<!-- 导航栏 -->
+<view class="nav-bar">
+  <view class="nav-title">我的朋友</view>
+  <view class="nav-right">
+    <text class="settings-icon">🔔</text>
+  </view>
+</view>
+
+<view class="container">
+  <view class="content">
+    <view class="empty-state">
+      <view class="empty-icon">👫</view>
+      <view class="empty-text">朋友功能即将上线</view>
+      <view class="empty-subtext">敬请期待</view>
+    </view>
+  </view>
+</view> 
